@@ -1,5 +1,3 @@
-*.project
-*.classpath
 logs/
 target/
 .settings/
