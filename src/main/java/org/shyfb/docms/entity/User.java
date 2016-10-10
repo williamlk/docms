@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class User {
 	
-	private int id;
+	private Integer id;
 	
 	private String name;
 	
@@ -14,7 +14,9 @@ public class User {
 	
 	private String phone;
 	
-	private int status;
+	private Integer status;
+	
+	private Integer del;
 	
 	private Date createdTime;
 	
@@ -22,11 +24,11 @@ public class User {
 	
 	private Role role;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -62,12 +64,22 @@ public class User {
 		this.phone = phone;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	
+
+	public Integer getDel() {
+		return del;
+	}
+
+	public void setDel(Integer del) {
+		this.del = del;
 	}
 
 	public Date getCreatedTime() {
@@ -93,6 +105,7 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
 	
 	
 	

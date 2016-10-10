@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Authority {
 	
-	private int id;
+	private Integer id;
 	
 	private String name;
 	
@@ -12,23 +12,23 @@ public class Authority {
 	
 	private String description;
 	
-	private int parentId;
+	private Integer parentId;
 	
-	private int status;
+	private Integer status;
 	
-	private int type;
+	private Integer type;
 	
 	private Date createdTime;
 	
 	private Date updatedTime;
 	
-	private int del;
+	private Integer del;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -56,27 +56,27 @@ public class Authority {
 		this.description = description;
 	}
 
-	public int getParentId() {
+	public Integer getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(int parentId) {
+	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
-	public int getType() {
+	public Integer getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 
@@ -96,13 +96,15 @@ public class Authority {
 		this.updatedTime = updatedTime;
 	}
 
-	public int getDel() {
+	public Integer getDel() {
 		return del;
 	}
 
-	public void setDel(int del) {
+	public void setDel(Integer del) {
 		this.del = del;
 	}
+
+	
 	
 	
 }

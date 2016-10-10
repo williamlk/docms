@@ -12,8 +12,4 @@
 		<!-- 开启驼峰命名转换 -->
 		<setting name="mapUndercoreCamelCase" value="true" />
 	</settings>
-
-	<mappers>
-		<mapper resource="org/mybatis/example/BlogMapper.xml" />
-	</mappers>
 </configuration>

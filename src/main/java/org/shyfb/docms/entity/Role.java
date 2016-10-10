@@ -3,21 +3,21 @@ package org.shyfb.docms.entity;
 import java.util.List;
 
 public class Role {
-	private int id;
+	private Integer id;
 	
 	private String name;
 	
 	private String description;
 	
-	private int del;
+	private Integer del;
 	
 	private List<Authority> authorities;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -37,11 +37,11 @@ public class Role {
 		this.description = description;
 	}
 
-	public int getDel() {
+	public Integer getDel() {
 		return del;
 	}
 
-	public void setDel(int del) {
+	public void setDel(Integer del) {
 		this.del = del;
 	}
 
@@ -52,6 +52,6 @@ public class Role {
 	public void setAuthorities(List<Authority> authorities) {
 		this.authorities = authorities;
 	}
-	
+
 	
 }

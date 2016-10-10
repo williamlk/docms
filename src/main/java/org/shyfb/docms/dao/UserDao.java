@@ -1,21 +1,22 @@
 package org.shyfb.docms.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.shyfb.docms.entity.User;
 
 public interface UserDao {
 	
 	int insert(User user);
+	/**
+	 * 更新，要给id
+	 * @param map
+	 * @return
+	 */
+	int update(Map<String,Object> map);
 	
-	int delete(int id);
+	User queryById(Integer id);
 	
-	int update(User user);
-	
-	User queryById(int id);
-	
-	User queryByName(String name);
-	
-	List<User> queryAll(int offset,int limit);
+	List<User> query(Map<String,Object> map);
 	
 }

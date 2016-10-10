@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.7.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="org.shyfb.docms" />
+
+
+	<!-- 文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+	</bean>
+
+	<!-- 配置整合mybatis过程 -->
+	<!-- 1.配置数据库相关参数 properties的属性 ${url} -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<!-- 2.数据库连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 配置连接池属性 -->
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxPoolSize" value="30" />
+		<property name="minPoolSize" value="10" />
+		<property name="autoCommitOnClose" value="false" />
+		<!-- 获取链接超时时间 -->
+		<property name="checkoutTimeout" value="1000" />
+		<!-- 获取链接失败重试次数 -->
+		<property name="acquireRetryAttempts" value="2" />
+	</bean>
+
+	<!-- 约定大于配置 -->
+	<!-- 3: 配置SqlSessionFactory对象 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 注入数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 配置mybatis全局配置文件 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<!-- 扫描entity包 使用别名 -->
+		<property name="typeAliasesPackage" value="org.shyfb.docms.entity" />
+		<!-- 扫描sql配置文件 -->
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+	</bean>
+
+
+	<!--4: 配置扫描dao接口包，动态实现Dao接口并注入到spring容器中 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 注入sqlsessionfactory -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<!-- 给出需要扫描Dao接口包 -->
+		<property name="basePackage" value="org.shyfb.docms.dao" />
+	</bean>
+
+	<!-- MongoDB dataSource -->
+	<!-- 对于MongoDB 3.0需要使用mongo-client -->
+	<!-- <mongo:mongo-client host="211.71.30.63" port="27017" id="mongo" credentials="root:irm409@bjmphoto"/> -->
+
+	<!-- factory -->
+	<!-- <mongo:db-factory dbname="bjmphoto" mongo-ref="mongo"/> -->
+
+	<!-- mongodb的主要操作对象，所有对mongodb的增删改查的操作都是通过它完成 -->
+	<!-- <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> 
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/> </bean> -->
+
+	<!-- 映射转换器，扫描back-package目录下的文件，根据注释，把它们作为mongodb的一个collection的映射 -->
+	<!-- <mongo:mapping-converter base-package="org.bjmphoto.demo.entity.mongo" 
+		id="converter"/> -->
+
+	<!-- Spring Data MongoDB设置支持GridFS，提供文件存储 -->
+	<!-- <bean class="org.springframework.data.mongodb.gridfs.GridFsTemplate"> 
+		<constructor-arg ref="mongoDbFactory" /> <constructor-arg ref="converter" 
+		/> </bean> -->
+
+
+	<!-- Mysql dataSource -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> <property name="driverClassName" value="com.mysql.jdbc.Driver" 
+		/> <property name="url" value="jdbc:mysql://localhost:3306/demo?useUnicode=true&amp;characterEncoding=UTF-8" 
+		/> <property name="username" value="root" /> <property name="password" value="yq7879231" 
+		/> <property name="removeAbandoned" value="true" /> <property name="initialSize" 
+		value="10" /> <property name="maxIdle" value="60" /> <property name="minIdle" 
+		value="5" /> <property name="maxActive" value="30" /> <property name="maxWait" 
+		value="600" /> <property name="testWhileIdle" value="false" /> <property 
+		name="testOnBorrow" value="true" /> <property name="testOnReturn" value="false" 
+		/> <property name="validationQuery" value="select 1" /> </bean> <bean id="sessionFactory" 
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> <property 
+		name="dataSource"> <ref bean="dataSource" /> </property> <property name="packagesToScan"> 
+		<list> <value>org.bjmphoto.demo.entity.mysql</value> </list> </property> 
+		<property name="hibernateProperties"> <props> <prop key="hibernate.show_sql">true</prop> 
+		<prop key="hibernate.format_sql">false</prop> <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> 
+		<prop key="hibernate.connection.autocommit">true</prop> <prop key="hibernate.connection.autoReconnect">true</prop> 
+		<prop key="hibernate.jdbc.batch_size">0</prop> <prop key="hibernate.hbm2ddl.auto">update</prop> 
+		单个数据库，采用本地事物而非全局事物(JTA)+++ H4的配置方式不同 <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext 
+		</prop> </props> </property> </bean> Mysql事务控制 <bean id="transactionManager" 
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager"> <property 
+		name="sessionFactory" ref="sessionFactory" /> </bean> <tx:annotation-driven 
+		transaction-manager="transactionManager" /> <tx:advice id="txAdvice" transaction-manager="transactionManager"> 
+		<tx:attributes> <tx:method name="save*" propagation="REQUIRED" /> <tx:method 
+		name="add*" propagation="REQUIRED" /> <tx:method name="create*" propagation="REQUIRED" 
+		/> <tx:method name="insert*" propagation="REQUIRED" /> <tx:method name="update*" 
+		propagation="REQUIRED" /> <tx:method name="merge*" propagation="REQUIRED" 
+		/> <tx:method name="del*" propagation="REQUIRED" /> <tx:method name="remove*" 
+		propagation="REQUIRED" /> <tx:method name="put*" propagation="REQUIRED" /> 
+		<tx:method name="use*" propagation="REQUIRED" /> hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到 
+		<tx:method name="get*" propagation="REQUIRED" /> <tx:method name="count*" 
+		propagation="REQUIRED" /> <tx:method name="find*" propagation="REQUIRED" 
+		/> <tx:method name="list*" propagation="REQUIRED" /> <tx:method name="is*" 
+		propagation="REQUIRED" /> </tx:attributes> </tx:advice> -->
+
+</beans>

@@ -3,6 +3,12 @@ package org.shyfb.docms.common.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * 
+ * @desp MD5 加密
+ * @author huyinghao@abchina.com
+ * @date 2016年10月10日
+ */
 public class MD5Util {
 
 	public static void main(String[] args) {
