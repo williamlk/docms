@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.shyfb.docms.aop.annotation.LoginCheck;
 import org.shyfb.docms.entity.User;
 import org.shyfb.docms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 用户控制类
+ * @desp
+ * @author huyinghao@abchina.com
+ * @date 2016年10月11日
+ */
+
+//TODO 修改RequestMethod,讨论明确要不要参数验证
 @Controller
 @Scope("prototype")
 public class UserController extends BaseController{
@@ -23,14 +32,10 @@ public class UserController extends BaseController{
 	@Autowired
 	private UserService userService;
 	
-	
-	
-	
-	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> login(HttpServletRequest request, HttpSession session) {
 		resMap = new HashMap<String, Object>();
-
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		int status = userService.login(name, password);
@@ -38,7 +43,7 @@ public class UserController extends BaseController{
 			Map<String,Object> map = new HashMap<>();
 			map.put("name", name);
 			session.setAttribute("user", userService.query(map));
-			resMap.put("status", 1000);
+			resMap.put("status", STATUS_OK);
 		} else if (status == -1) {
 			resMap.put("error", "用户不存在");
 		} else if (status == -2) {
@@ -49,10 +54,7 @@ public class UserController extends BaseController{
 		return resMap;
 	}
 	
-	
-	
-	
-	@RequestMapping(value="/user/register")
+	@RequestMapping(value="/user/register",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> register(HttpServletRequest request, HttpSession session){
 		resMap=new HashMap<>();
@@ -64,7 +66,7 @@ public class UserController extends BaseController{
 		
 		int status = userService.register(name, password, email, phone);
 		if(status == 0){
-			resMap.put("status", 1000);
+			resMap.put("status", STATUS_OK);
 		}
 		else if(status == -1){
 			resMap.put("error", "系统错误");
@@ -74,16 +76,7 @@ public class UserController extends BaseController{
 		return resMap;
 	}
 	
-	
-//	public Map<String,Object> update(HttpServletRequest request, HttpSession session){
-//		return resMap;
-//	}
-//	
-//	public Map<String,Object> delete(HttpServletRequest request, HttpSession session){
-//		return resMap;
-//	}
-
-	
+	@LoginCheck
 	@RequestMapping(value="/user/userData",method= RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> userData(){
@@ -93,13 +86,12 @@ public class UserController extends BaseController{
 		return resMap;
 	}
 	
-	
+	@LoginCheck
 	@RequestMapping(value="/user/logout",method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> logout(HttpSession session){
-		resMap = new HashMap<String, Object>();
 		session.removeAttribute("user");
-		resMap.put("status", 1000);
+		resMap.put("status", STATUS_OK);
 		return resMap;
 	}
 	

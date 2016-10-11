@@ -6,6 +6,7 @@ import java.util.Map;
 import org.shyfb.docms.entity.User;
 
 
+
 public interface UserService {
 
 	/**

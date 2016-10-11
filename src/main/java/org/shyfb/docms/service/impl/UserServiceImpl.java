@@ -9,7 +9,9 @@ import org.shyfb.docms.dao.UserDao;
 import org.shyfb.docms.entity.User;
 import org.shyfb.docms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
@@ -34,9 +36,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int updateById(Map<String,Object> map) {
+		if(map!=null && map.containsKey("id")){
 		//update 返回的数字代表改动的行数
 		int result = userDao.update(map);
-		if(map.get("id")!=null){
 			if(result==1){
 				return 0;
 			}else{

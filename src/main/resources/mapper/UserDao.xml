@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.shyfb.docms.dao.UserDao">
 
@@ -29,27 +29,28 @@
 
 	<select id="queryById" parameterType="java.lang.Integer"
 		resultType="org.shyfb.docms.entity.User">
-		select 
+		select
 		<include refid="columns" />
 		from tb_user u
 		where id=#{id,jdbcType=INTEGER}
 	</select>
 
 	<select id="query" parameterType="java.util.Map" resultType="org.shyfb.docms.entity.User">
-		select <include refid="columns"/>
-		from tb_user u 
-		where 1=1 
+		select
+		<include refid="columns" />
+		from tb_user u
+		where 1=1
 		<if test="name != null and name != ''">
-		and name=#{name,jdbcType=VARCHAR}
+			and name=#{name,jdbcType=VARCHAR}
 		</if>
 		<if test="email != null and email != ''">
-		and email=#{email,jdbcType=VARCHAR}
+			and email=#{email,jdbcType=VARCHAR}
 		</if>
 		<if test="phone != null and phone !=''">
-		and phone=#{phone,jdbcType=VARCHAR}
+			and phone=#{phone,jdbcType=VARCHAR}
 		</if>
 	</select>
-	
+
 	<update id="update" parameterType="org.shyfb.docms.entity.User">
 		update tb_user
 		<set>
@@ -74,15 +75,6 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	
-	
-	<update id="delete" parameterType="java.lang.Integer">
-		update tb_user
-		<set>
-			del=1
-		</set>
-		where id=#{id,jdbcType=INTEGER}
-	</update>
-	
-	
+
+
 </mapper>

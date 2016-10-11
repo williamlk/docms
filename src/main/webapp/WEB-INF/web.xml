@@ -55,11 +55,12 @@
         </listener-class>
   </listener>
   
-  
+<!-- 
   <context-param>
     <param-name>webAppRootKey</param-name>
     <param-value>docms.root</param-value>
   </context-param>
+ -->  
   
   
   <listener>
