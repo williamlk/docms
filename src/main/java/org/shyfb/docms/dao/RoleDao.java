@@ -2,17 +2,44 @@ package org.shyfb.docms.dao;
 
 import org.shyfb.docms.entity.Role;
 import java.util.List;
-public interface RoleDao {
+import java.util.Map;
 
+/**
+ * 角色管理Dao层
+ * @desp
+ * @author huyinghao@abchina.com
+ * @date 2016年10月12日
+ */
+public interface RoleDao {
+	
+	/**
+	 * 插入一条记录
+	 * @param role
+	 * @return
+	 */
 	int insert(Role role);
+		
+	/**
+	 * 更新操作
+	 * map中必须含有id
+	 * @param map
+	 * @return
+	 */
+	int update(Map<String,Object> map);
 	
-	int delete(int id);
-	
-	int update(Role role);
-	
+	/**
+	 * 根据id查询角色
+	 * @param id
+	 * @return
+	 */
 	Role queryById(int id);
 	
-	Role queryByName(String name);
 	
-	List<Role> queryAll(int offset,int limit);
+	/**
+	 * 查询角色
+	 * @param map
+	 * @return
+	 */
+	List<Role> query(Map<String, Object> map);
+	
 }

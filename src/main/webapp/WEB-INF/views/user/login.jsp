@@ -7,17 +7,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
 	<title>登录-docms文件管理系统</title>
-	<base href="<%=basePath%>">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-</head>
-<body>
-	请登录！
-	<hr>
-	
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+  <div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3>
+				docms文件管理系统.
+			</h3>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<form class="form-horizontal">
+				<div class="control-group">
+					 <label class="control-label" for="inputUsername">用户名</label>
+					<div class="controls">
+						<input id="inputUsername" type="text" />
+					</div>
+				</div>
+				<div class="control-group">
+					 <label class="control-label" for="inputPassword">密码</label>
+					<div class="controls">
+						<input id="inputPassword" type="password" />
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						 <label class="checkbox"><input type="checkbox" /> Remember me</label> <button type="submit" class="btn">登陆</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>

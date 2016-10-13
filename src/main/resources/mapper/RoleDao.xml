@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.shyfb.docms.dao.RoleDao">
+
+	<sql id="columns">
+		r.id,
+		r.name,
+		r.description,
+		r.del
+	</sql>
+	<insert id="insert" parameterType="org.shyfb.docms.entity.Role">
+		insert into tb_role (name,description)
+		values (#{name,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER})
+	</insert>
+
+	<select id="queryById" parameterType="java.lang.Integer"
+		resultType="org.shyfb.docms.entity.Role">
+		select
+		<include refid="columns" />
+		from tb_role r
+		where r.id=#{id,jdbcType=INTEGER} and r.del=0
+	</select>
+
+	<select id="query" parameterType="java.util.Map" resultType="org.shyfb.docms.entity.Role">
+		select
+		<include refid="columns" />
+		from tb_role r
+		where r.del=0 
+		<if test="name != null and name != ''">
+			and r.name=#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="description != null and description != ''">
+			and r.description=#{description,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<update id="update" parameterType="java.util.Map">
+		update tb_role
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null and description !=''">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+</mapper>

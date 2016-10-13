@@ -86,12 +86,17 @@ public class UserController extends BaseController{
 		return resMap;
 	}
 	
-	@LoginCheck
+	
+	
+	
+//	@LoginCheck
 	@RequestMapping(value="/user/logout",method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> logout(HttpSession session){
+		resMap=new HashMap<String,Object>();
 		session.removeAttribute("user");
 		resMap.put("status", STATUS_OK);
+		resMap.put("msg","用户已注销");
 		return resMap;
 	}
 	

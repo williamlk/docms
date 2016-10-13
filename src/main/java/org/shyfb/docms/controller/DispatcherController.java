@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DispatcherController extends BaseController{
 	
 	
-	@RequestMapping(value="/",method = RequestMethod.GET)
-	public String home(/*Model model*/) {
+//	@RequestMapping(value="/",method = RequestMethod.GET)
+//	public String home(/*Model model*/) {
 //		model.addAttribute("recommends",recommendService.getRecommendImage());
-		return "user/login";
-	}
-	
+//		return "user/login";
+//	}
+//	
 }

@@ -1,5 +1,6 @@
 package org.shyfb.docms.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.shyfb.docms.aop.exception.NotLoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 基础控制类
@@ -43,7 +45,10 @@ public class BaseController {
 	}
 
 	@ExceptionHandler(value = NotLoginException.class)
-	protected String loginException(HttpServletRequest request, HttpSession session) {
-		return "user/login";
+	@ResponseBody
+	protected Map<String,Object> loginException(HttpServletRequest request, HttpSession session) {
+		resMap=new HashMap<>();
+		resMap.put("msg", "用户未登录");
+		return resMap;
 	}
 }
