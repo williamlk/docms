@@ -9,8 +9,6 @@
 		<setting name="useGeneratedKeys" value="true" />
 		<!-- 使用列别名替换列名 默认为true -->
 		<setting name="useColumnLabel" value="true" />
-
 		<setting name="mapUnderscoreToCamelCase" value="true" />
-
 	</settings>
 </configuration>

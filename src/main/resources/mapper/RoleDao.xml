@@ -10,21 +10,21 @@
 		r.description,
 		r.del
 	</sql>
-	<insert id="insert" parameterType="org.shyfb.docms.entity.Role">
+	<insert id="insert" parameterType="Role">
 		insert into tb_role (name,description)
 		values (#{name,jdbcType=VARCHAR},
 		#{status,jdbcType=INTEGER})
 	</insert>
 
 	<select id="queryById" parameterType="java.lang.Integer"
-		resultType="org.shyfb.docms.entity.Role">
+		resultType="Role">
 		select
 		<include refid="columns" />
 		from tb_role r
 		where r.id=#{id,jdbcType=INTEGER} and r.del=0
 	</select>
 
-	<select id="query" parameterType="java.util.Map" resultType="org.shyfb.docms.entity.Role">
+	<select id="query" parameterType="java.util.Map" resultType="Role">
 		select
 		<include refid="columns" />
 		from tb_role r
