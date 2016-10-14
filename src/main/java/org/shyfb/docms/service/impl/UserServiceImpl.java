@@ -66,11 +66,7 @@ public class UserServiceImpl implements UserService{
 		Map<String,Object> map = new HashMap<>();
 		map.put("name", name);
 		List<User> users;
-		try{
-			users = userDao.query(map);
-		}catch(Exception e){
-			return -3;
-		}
+		users = userDao.query(map);
 		if(users.size()>0){
 			User user = users.get(0);
 			if(user.getPassword().equals(EncoderHandler.encodeByMD5(password))){

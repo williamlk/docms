@@ -1,0 +1,69 @@
+@CHARSET "UTF-8";
+div.superbox{
+	width: 100%;
+}
+div.superbox>div.superbox-list{
+	display: inline-block;
+	margin: 5px;
+}
+div.superbox img.super-box{
+	max-height: 184px;
+	cursor: pointer;
+}
+div.superbox img.super-box:hover{
+	filter: saturate(200%);
+    -webkit-filter: saturate(200%);
+    -moz-filter: saturate(200%);
+    -o-filter: saturate(200%);
+    -ms-filter: saturate(200%);
+}
+dov.image.content{
+	overflow: hidden;
+}
+.superbox-show {
+    display: -moz-box; 
+    display: -webkit-box; 
+    display: box; 
+    text-align: left;
+    position: relative;
+    background: #fff;
+    /* box-shadow: inset 0 1px 5px #111; */
+    /* -webkit-box-shadow: inset 0 1px 5px #111; */
+    -moz-box-shadow: inset 0 1px 5px #111;
+    width: 100%;
+    float: left;
+    padding: 25px;
+    margin-top: 20px;
+}
+div.superbox-show img{
+	max-height: 360px;
+	max-width: 540px;
+	-moz-box-flex: 5; 
+    -webkit-box-flex: 5; 
+    box-flex: 5;
+}
+div.superbox-show div.img-details-container{
+	-moz-box-flex: 3; 
+    -webkit-box-flex: 3; 
+    box-flex: 3;
+    color: #222;
+    padding: 25px;
+    height: 360px;
+    overflow-y: scroll;
+}
+div.img-details span.name{
+	font-weight: bold;
+	font-size: 16px;
+}
+div.img-details span.name:after{
+	cotent: " ";
+}
+div.triangle{
+	position: absolute;
+	top: -20px;
+	width: 0;
+	height: 0;
+	border: 10px solid;
+	border-color: transparent;
+	border-bottom-color: #fff;
+}

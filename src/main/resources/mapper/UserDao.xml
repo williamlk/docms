@@ -3,19 +3,31 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.shyfb.docms.dao.UserDao">
-
+	<!-- 
+	<resultMap id="BaseResultMap" type="org.shyfb.docms.entity.User">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+ 		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="status" jdbcType="INTEGER" property="status" />		
+		<result column="del" jdbcType="INTEGER" property="del" />
+		<result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+		<result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+	</resultMap>
+	 -->
 	<sql id="columns">
-		u.id,
-		u.name,
-		u.password,
-		u.email,
-		u.phone,
-		u.status,
-		u.created_time,
-		u.updated_time,
-		u.del
+		id,
+		name,
+		password,
+		email,
+		phone,
+		status,
+		created_time,
+		updated_time,
+		del
 	</sql>
-	<insert id="insert" parameterType="org.shyfb.docms.entity.User">
+	<insert id="insert" parameterType="User">
 		insert into tb_user (id,
 		name,password,email,phone,status,del)
 		values (#{id,jdbcType=INTEGER},
@@ -28,26 +40,26 @@
 	</insert>
 
 	<select id="queryById" parameterType="java.lang.Integer"
-		resultType="org.shyfb.docms.entity.User">
+		resultType="User">
 		select
 		<include refid="columns" />
-		from tb_user u 
-		where u.id=#{id,jdbcType=INTEGER} and u.del=0
+		from tb_user
+		where id=#{id,jdbcType=INTEGER} and del=0
 	</select>
 
-	<select id="query" parameterType="java.util.Map" resultType="org.shyfb.docms.entity.User">
-		select
-		<include refid="columns" />
-		from tb_user u 
-		where 1=1 and u.del=0
+	<select id="query" parameterType="java.util.Map" resultType="User">
+		select 
+		<include refid="columns" /> 
+		from tb_user
+		where 1=1 and del=0
 		<if test="name != null and name != ''">
-			and u.name=#{name,jdbcType=VARCHAR}
+			and name=#{name,jdbcType=VARCHAR}
 		</if>
 		<if test="email != null and email != ''">
-			and u.email=#{email,jdbcType=VARCHAR}
+			and email=#{email,jdbcType=VARCHAR}
 		</if>
 		<if test="phone != null and phone !=''">
-			and u.phone=#{phone,jdbcType=VARCHAR}
+			and phone=#{phone,jdbcType=VARCHAR}
 		</if>
 	</select>
 

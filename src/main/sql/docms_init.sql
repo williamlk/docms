@@ -30,7 +30,7 @@ CREATE TABLE `tb_user` (
 `phone`  varchar(21) NOT NULL ,
 `status`  tinyint(1) NOT NULL DEFAULT 0 ,
 `created_time`  timestamp DEFAULT CURRENT_TIMESTAMP ,
-`updated_time`  timestamp ON UPDATE CURRENT_TIMESTAMP ,
+`updated_time`  timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
 `del`  tinyint(1) NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id`)
 )
@@ -59,7 +59,7 @@ CREATE TABLE `tb_authority` (
 `status`  tinyint(1) NOT NULL DEFAULT 0 ,
 `type`  tinyint(1) NOT NULL DEFAULT 0 ,
 `created_time`  timestamp DEFAULT CURRENT_TIMESTAMP ,
-`updated_time`  timestamp ON UPDATE CURRENT_TIMESTAMP ,
+`updated_time`  timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
 `del`  tinyint(1) NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id`)
 )

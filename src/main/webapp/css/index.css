@@ -1,0 +1,262 @@
+@CHARSET "UTF-8";
+
+.info-title {
+	color: white;
+	font-size: 14px;
+	background-color: blue;
+	line-height: 26px;
+	padding: 0px 0 0 6px;
+	font-weight: lighter;
+	letter-spacing: 1px
+}
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+}
+
+.info-content {
+	font: 12px Helvetica;
+	font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande",
+		"Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB",
+		"Hiragino Sans GB W3", "Microsoft YaHei UI", "Microsoft YaHei",
+		"WenQuanYi Micro Hei", sans-serif;
+	padding: 4px;
+	color: #666666;
+	line-height: 23px;
+}
+
+.info-content img {
+	float: left;
+	margin: 3px;
+}
+
+.school-logo {
+	display: block;
+	width: 15%;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+}
+
+body.container {
+	width: 100%;
+}
+
+.cbp-item-wrapper img {
+	height: 200px;
+}
+
+#super-modal {
+	width: 100% !important;
+	height: 100%;
+	left: 0 !important;
+	padding: 0;
+	padding-left: 20px;
+	padding-top: 20px;
+	margin: 0px !important;
+	top: 0;
+}
+
+.modal .school-logo {
+	display: block;
+	position: fixed;
+	bottom: 30px;
+}
+
+.cbp {
+	padding-right: 20px;
+}
+
+div.portfilio {
+	height: 100%;
+}
+
+.h100p {
+	height: 100%;
+}
+
+div.right-container {
+	height: 100%;
+	padding-top: 66px;
+	overflow: hidden;
+}
+
+div.right-container>div.clearfix{
+	margin-top: -66px;
+}
+
+div.portfolio {
+	overflow: auto;
+	height: 100%;
+}
+
+div.cbp-l-inline {
+	margin-right: 20px;
+}
+
+div.close-modal {
+	position: absolute;
+	right: 40px;
+	top: 5px;
+	font-size: 30px;
+	color: #bbb;
+	cursor: pointer;
+	z-index: 101;
+}
+
+div.close-modal:hover {
+	color: #fff;
+}
+
+p.location {
+	word-break: break-all;
+	margin-top: 20px;
+	font-size: 16px;
+	text-align: center;
+}
+.header {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 55px;
+    background: transparent;
+    min-width: 640px;
+}
+.header .social-about {
+    position: absolute;
+    top: 10px;
+    left: 300px;
+    padding: 15px;
+    padding-bottom: 12px;
+}
+.logo {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background-color: #fff;
+}
+.logo .wrapper {
+    font-size: 1.2em;
+    padding: 10px;
+}
+.logo a {
+    font-family: Georgia,serif;
+    font-size: 2em;
+    color: #111;
+    line-height: 1em;
+    display: inline-block;
+}
+.logo .slogan {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 0.85em;
+    line-height: 1.2em;
+    padding-top:2px;
+}
+.amap-controls{
+	display:none;
+}
+a {
+    text-decoration: none;
+}
+.amap-logo,.amap-copyright{
+	display:none !important;
+}
+#popular {
+    overflow-y: scroll;
+    bottom: 30px;
+}
+#popular, .popular-link {
+    position: absolute;
+    top: 10px;
+    width: 213px;
+    right: 10px;
+    background: #eee;
+    padding: 0 10px;
+}
+#popular h2, .popular-link h2 {
+    font-size: 16px;
+}
+h2 {
+    font-size: 20px;
+    margin: 7px 0px;
+}
+#popular .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    height: 1.5em;
+    line-height: 1.5em;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+.popular-photo {
+    padding-bottom: 15px;
+}
+.popular-image{
+	width: 200px;
+    height: 134px;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+}
+.cbp-l-inline-button{
+	position: absolute;
+    bottom: 60px;
+    right: 5%;
+}
+#about {
+	position: absolute;
+	bottom:0px;
+    height: 44px;
+    background: transparent;
+    min-width: 640px;
+    font-size: 1.1em;
+    margin-left: 0;
+    padding-top: 18px;
+}
+.header .social-about>div {
+    float: left;
+}
+
+#timeline-container{
+	color:#000000;
+}
+
+div.mt-timeline-container{
+	height: 100%;
+	overflow: auto;
+	padding-right: 20px;
+}
+.mt-timeline-2{
+}
+
+#timeline-modal {
+    width: 100% !important;
+    height: 100%;
+    left: 0 !important;
+    padding: 0;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin: 0px !important;
+    top: 0;
+}
+
+#timeline-modal .right-container{
+	height: 100%;
+    padding-top: 0;
+    overflow: hidden;
+}
+#timeline-modal div.right-container>div.clearfix{
+	margin-top: 0;
+}
