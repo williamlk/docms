@@ -48,7 +48,6 @@
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
 		</dependency>
-
 		<!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -67,7 +66,6 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.3</version>
 		</dependency>
-
 		<!-- servlet web 相关依赖 -->
 		<!-- jsp 的标签 -->
 		<dependency>
@@ -90,9 +88,6 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-
-
-
 		<!-- spring依赖 -->
 		<!-- spring核心依赖 -->
 		<dependency>
@@ -110,7 +105,6 @@
 			<artifactId>spring-context</artifactId>
 			<version>4.1.7.RELEASE</version>
 		</dependency>
-
 		<!-- spring dao层依赖 -->
 		<dependency>
 			<groupId>org.springframework</groupId>

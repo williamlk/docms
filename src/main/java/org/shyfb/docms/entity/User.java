@@ -22,6 +22,8 @@ public class User {
 	
 	private Date updatedTime;
 	
+	private Integer roleId;
+	
 	private Role role;
 
 	public Integer getId() {
@@ -96,6 +98,16 @@ public class User {
 
 	public void setUpdatedTime(Date updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	
+	
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 	public Role getRole() {

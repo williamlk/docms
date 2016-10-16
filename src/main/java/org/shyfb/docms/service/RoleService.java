@@ -11,6 +11,12 @@ public interface RoleService {
 	
 	List<Role> getRoleData();
 	
+	/**
+	 * 通过id获得role
+	 * @param id
+	 * @return Role
+	 */
+	Role getRoleById(Integer id);
 	
 	
 }

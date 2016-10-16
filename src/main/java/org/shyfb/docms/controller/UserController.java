@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.shyfb.docms.aop.annotation.LoginCheck;
+import org.shyfb.docms.entity.Role;
 import org.shyfb.docms.entity.User;
+import org.shyfb.docms.service.RoleService;
 import org.shyfb.docms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -32,6 +34,9 @@ public class UserController extends BaseController{
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private RoleService roleService;
+	
 	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> login(HttpServletRequest request, HttpSession session) {
@@ -42,15 +47,20 @@ public class UserController extends BaseController{
 		if (status == 0) {
 			Map<String,Object> map = new HashMap<>();
 			map.put("name", name);
-			session.setAttribute("user", userService.query(map));
+			User user= userService.query(map).get(0);
+			Role role=roleService.getRoleById(user.getRoleId());
+			user.setRole(role);
+			session.setAttribute("user",user);
+//			session.setAttribute("role", userRole);
 			resMap.put("status", STATUS_OK);
 		} else if (status == -1) {
 			resMap.put("error", "用户不存在");
 		} else if (status == -2) {
 			resMap.put("error", "密码错误");
-		} else if (status == -3) {
-			resMap.put("error", "系统错误");
 		}
+//		else if (status == -3) {
+//			resMap.put("error", "系统错误");
+//		}
 		return resMap;
 	}
 	

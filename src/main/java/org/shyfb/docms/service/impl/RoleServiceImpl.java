@@ -19,5 +19,11 @@ public class RoleServiceImpl implements RoleService{
 	public List<Role> getRoleData() {
 		return roleDao.query(new HashMap<String,Object>());
 	}
+
+	@Override
+	public Role getRoleById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

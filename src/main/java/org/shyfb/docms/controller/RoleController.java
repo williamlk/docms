@@ -48,7 +48,6 @@ public class RoleController extends BaseController{
 	
 	public Map<String,Object> insert(){
 		return resMap;
-		
 	}
 	
 	
