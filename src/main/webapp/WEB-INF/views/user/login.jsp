@@ -38,8 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="col-md-6 login-container bs-reset">
                 <div class="login-content">
-                    <h1>北京老照片GIS时光机后台管理系统</h1>
-                    <p> “北京老照片档案‘时光机’”是基于地理信息系统的北京老照片档案集成与展示的平 台。展示的平台包括网站和手机 APP,满足不同人群对于照片档案利用的需求。“北京老照 片档案‘时光机’”旨在开创档案利用的新平台,使照片档案在北京成历史巨大变迁中不失 本色,同时焕发出更大的社会价值和商业价值。 </p>
+                    <h1>docms后台管理系统</h1>
+                    <p>"DOCMS文件管理系统”是农行软开上研应用支持部门所使用的文件管理系统。通过网站应用的方式搭建起大家共享、使用、管理文件的平台。DOCMS文件管理系统旨在为大家提供稳定的、易用的文件管理服务。作为工具，协助员工创造更大价值。 </p>
                     <form role="form" data-parsley-validate="" name="login_form" class="login-form">
                         <div id="error_div" class="alert alert-danger display-hide">
                             <button class="close" data-close="alert"></button>
@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                           		<input id="email" data-parsley-errors-container="#error_msg" type="email" placeholder="Enter email" autocomplete="off" required class="form-control form-control-solid placeholder-no-fix form-group">
+                           		<input id="username" data-parsley-errors-container="#error_msg" type="text" placeholder="Enter username" autocomplete="off" required class="form-control form-control-solid placeholder-no-fix form-group">
                             </div>
                             <div class="col-xs-6">
                                 <input data-parsley-errors-container="#error_msg" class="form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Password" id="password" type="password" required class="form-control" data-parsley-length="[6, 20]"/> </div>
@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="col-xs-7 bs-reset">
                             <div class="login-copyright text-right">
-                                <p>Copyright &copy;  2015 信息资源管理学院Web开发实验室@IRM409</p>
+                                <p>Copyright &copy;  2016 中国农业银行软件开发中心 支持一部@abchina</p>
                             </div>
                         </div>
                     </div>
@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  $.post(
 				    	url,
 				    	{
-		      				'email':$('#email').val(),
+		      				'name':$('#username').val(),
 							'password':$('#password').val(),
 							'type':'pc'
 		      			},

@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>控制台-DOCMS后台管理系统管理系统</title>
+	<title>控制台-DOCMS后台管理系统</title>
 	<c:import url="/page/header"></c:import>
 	<link rel="stylesheet" href="">
 	<style type="text/css">

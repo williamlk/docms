@@ -37,7 +37,7 @@ public class UserController extends BaseController{
 	@Autowired
 	private RoleService roleService;
 	
-	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> login(HttpServletRequest request, HttpSession session) {
 		resMap = new HashMap<String, Object>();
@@ -64,7 +64,7 @@ public class UserController extends BaseController{
 		return resMap;
 	}
 	
-	@RequestMapping(value="/user/register",method=RequestMethod.GET)
+	@RequestMapping(value="/user/register",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> register(HttpServletRequest request, HttpSession session){
 		resMap=new HashMap<>();

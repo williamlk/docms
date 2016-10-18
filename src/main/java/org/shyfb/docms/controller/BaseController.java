@@ -46,9 +46,9 @@ public class BaseController {
 
 	@ExceptionHandler(value = NotLoginException.class)
 	@ResponseBody
-	protected Map<String,Object> loginException(HttpServletRequest request, HttpSession session) {
-		resMap=new HashMap<>();
-		resMap.put("msg", "用户未登录");
-		return resMap;
+	protected String loginException(HttpServletRequest request, HttpSession session) {
+//		resMap=new HashMap<>();
+//		resMap.put("msg", "用户未登录");
+		return "user/login";
 	}
 }
