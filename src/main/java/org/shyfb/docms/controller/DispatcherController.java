@@ -27,7 +27,7 @@ public class DispatcherController extends BaseController{
 	public String dashboard(Model model){
 		//TODO 可以加入些统计信息，统计信息可以用缓存，redis的使用契机，找机会整合进去
 		model.addAttribute("key", new Object());
-		
+		model.addAttribute("keys",new List<Object>());
 		return "dashboard";
 	}
 }
