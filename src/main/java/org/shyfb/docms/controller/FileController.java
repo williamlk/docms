@@ -97,191 +97,192 @@ public class FileController extends BaseController{
 		String address = request.getParameter("address");
 		
 		String path = request.getSession().getServletContext().getRealPath("/img/");
-		File imageFile = new File(path+EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+image.getOriginalFilename())+".jpg");
-		
-		image.transferTo(imageFile);
-		
-		int status = imageService.addImage(imageFile, fileName, title, subject, description, source, tag,
-				creator, publisher, contributor, uploadUser, date, type, locationId,subjectId,address);
-		
-		if(status == 0){
-			resMap.put("status", 1000);
-		}else{
-			resMap.put("error", INTERNAL_SERVER_ERROR);
-		}
-		
-		return resMap;
-	}
-	
-	/**
-	 * @desp 修改照片资源元数据信息页面
-	 * @param imageId
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="image/page/edit/{imageId}",method=RequestMethod.GET)
-	@LoginCheck
-	public String editImagePage(@PathVariable(value="imageId")String imageId,Model model){
-		Image image = imageService.findById(imageId);
-		MapLocation location = mapService.findLocationById(image.getLocationId());
-		
-		model.addAttribute("image",image);
-		model.addAttribute("location",location);
-		
-		return "image/editImage";
-	}
-	
-	/**
-	 * @desp 修改照片资源元数据信息
-	 * @return
-	 */
-	@RequestMapping(value="image/edit",method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> editImage(HttpServletRequest request){
-		resMap = new HashMap<String, Object>();
-		
-		String title = request.getParameter("title");
-		String subject = request.getParameter("subject");
-		String description = request.getParameter("description");
-		String source = request.getParameter("source");
-		String tag = request.getParameter("tag");
-		String creator = request.getParameter("creator");
-		String publisher = request.getParameter("publisher");
-		String contributor = request.getParameter("contributor");
-		String date = request.getParameter("date");
-		String type = request.getParameter("type");
-		String imageId = request.getParameter("imageId");
-		String address = request.getParameter("address");
-		
-		int status = imageService.editImage(imageId, title, subject, description, source, tag, creator, publisher, contributor, date, type,address);
-		
-		if(status == 0){
-			resMap.put("status", 1000);
-		}else{
-			resMap.put("error", INTERNAL_SERVER_ERROR);
-		}
+//		File imageFile = new File(path+EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+image.getOriginalFilename())+".jpg");
+//		
+//		image.transferTo(imageFile);
+//		
+//		int status = imageService.addImage(imageFile, fileName, title, subject, description, source, tag,
+//				creator, publisher, contributor, uploadUser, date, type, locationId,subjectId,address);
+//		
+//		if(status == 0){
+//			resMap.put("status", 1000);
+//		}else{
+//			resMap.put("error", INTERNAL_SERVER_ERROR);
+//		}
 		
 		return resMap;
 	}
 	
-	/**
-	 * @desp 照片详情
-	 * @return
-	 */
-	@RequestMapping(value="image/info/{imageId}",method = RequestMethod.GET)
-	@LoginCheck
-	public String imageInfo(@PathVariable(value="imageId")String imageId,Model model){
-		Image image = imageService.findById(imageId);
-		MapLocation location = mapService.findLocationById(image.getLocationId());
-		User user = userService.findById(image.getUploadUser());
-		
-		model.addAttribute("user",user);
-		model.addAttribute("image",image);
-		model.addAttribute("location",location);
-		model.addAttribute("subject",subjectService.findById(image.getSubjectId()));
-		
-		return "image/imageInfo";
-	}
-	
-	/**
-	 * @desp 查看照片
-	 * @return
-	 */
-	@RequestMapping(value="/image/view/{locationId}",method=RequestMethod.GET)
-	@LoginCheck
-	public String view(@PathVariable(value="locationId")String locationId,Model model){
-		List<Image> imageList = imageService.findByLocOrderByTime(locationId);
-		
-		model.addAttribute("imageList",imageList);
-		model.addAttribute("locationId",locationId);
-		return "image/viewImage";
-	}
-	
-	/**
-	 * @desp 时间轴查看照片
-	 * @param locationId
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="image/view/timeline/{locationId}",method = RequestMethod.GET)
-	@LoginCheck
-	public String viewTimeline(@PathVariable(value="locationId")String locationId,Model model){
-		List<Image> imageList = imageService.findByLocOrderByTime(locationId);
-		
-		model.addAttribute("imageList",imageList);
-		model.addAttribute("locationId",locationId);
-		return "image/viewImageTimeline";
-	}
-	
-	/**
-	 * @desp 删除照片
-	 * @param imageId
-	 * @return
-	 */
-	@RequestMapping(value="image/delete/{imageId}",method = RequestMethod.GET)
-	@ResponseBody
-	@LoginCheck
-	public Map<String, Object> deleteImage(@PathVariable(value="imageId")String imageId){
-		resMap = new HashMap<String, Object>();
-		int status = imageService.delete(imageId);
-		if(status==0){
-			resMap.put("status", 1000);
-		}else{
-			resMap.put("error", INTERNAL_SERVER_ERROR);
-		}
-		return resMap;
-	}
-	
-	/**
-	 * @desp 更改照片专题
-	 * @return
-	 */
-	@RequestMapping(value="image/changeSubject",method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> changeSubject(HttpServletRequest request){
-		resMap = new HashMap<String, Object>();
-		String imageId = request.getParameter("imageId");
-		String subjectId = request.getParameter("subjectId");
-		int status = imageService.changeSubject(imageId,subjectId);
-		if(status == 0){
-			resMap.put("status", 1000);
-		}else{
-			resMap.put("error", INTERNAL_SERVER_ERROR);
-		}
-		return resMap;
-	}
-	
-	/**
-	 * @desp 更改照片位置页面
-	 * @return
-	 */
-	@RequestMapping(value="image/page/changeLocation/{imageId}",method = RequestMethod.GET)
-	@LoginCheck
-	public String changeLocation(@PathVariable(value="imageId")String imageId,Model model){
-		Image image = imageService.findById(imageId);
-		MapLocation location = mapService.findLocationById(image.getLocationId());
-		model.addAttribute("image",image);
-		model.addAttribute("location",location);
-		return "mapResource/changeImgLocation";
-	}
-	
-	/**
-	 * @desp 更改照片所属位置
-	 * @return
-	 */
-	@RequestMapping(value="image/changeLocation",method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> changeLocation(HttpServletRequest request){
-		resMap = new HashMap<String, Object>();
-		String imageId = request.getParameter("imageId");
-		String locationId = request.getParameter("locationId");
-		int status = imageService.changeLocation(imageId,locationId);
-		if(status == 0){
-			resMap.put("status", 1000);
-		}else{
-			resMap.put("error", INTERNAL_SERVER_ERROR);
-		}
-		return resMap;
-	}
+//	/**
+//	 * @desp 修改照片资源元数据信息页面
+//	 * @param imageId
+//	 * @param model
+//	 * @return
+//	 */
+//	@RequestMapping(value="image/page/edit/{imageId}",method=RequestMethod.GET)
+//	@LoginCheck
+//	public String editImagePage(@PathVariable(value="imageId")String imageId,Model model){
+//		Image image = imageService.findById(imageId);
+//		MapLocation location = mapService.findLocationById(image.getLocationId());
+//		
+//		model.addAttribute("image",image);
+//		model.addAttribute("location",location);
+//		
+//		return "image/editImage";
+//	}
+//	
+//	/**
+//	 * @desp 修改照片资源元数据信息
+//	 * @return
+//	 */
+//	@RequestMapping(value="image/edit",method = RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, Object> editImage(HttpServletRequest request){
+//		resMap = new HashMap<String, Object>();
+//		
+//		String title = request.getParameter("title");
+//		String subject = request.getParameter("subject");
+//		String description = request.getParameter("description");
+//		String source = request.getParameter("source");
+//		String tag = request.getParameter("tag");
+//		String creator = request.getParameter("creator");
+//		String publisher = request.getParameter("publisher");
+//		String contributor = request.getParameter("contributor");
+//		String date = request.getParameter("date");
+//		String type = request.getParameter("type");
+//		String imageId = request.getParameter("imageId");
+//		String address = request.getParameter("address");
+//		
+//		int status = imageService.editImage(imageId, title, subject, description, source, tag, creator, publisher, contributor, date, type,address);
+//		
+//		if(status == 0){
+//			resMap.put("status", 1000);
+//		}else{
+//			resMap.put("error", INTERNAL_SERVER_ERROR);
+//		}
+//		
+//		return resMap;
+//	}
+//	
+//	/**
+//	 * @desp 照片详情
+//	 * @return
+//	 */
+//	@RequestMapping(value="image/info/{imageId}",method = RequestMethod.GET)
+//	@LoginCheck
+//	public String imageInfo(@PathVariable(value="imageId")String imageId,Model model){
+//		Image image = imageService.findById(imageId);
+//		MapLocation location = mapService.findLocationById(image.getLocationId());
+//		User user = userService.findById(image.getUploadUser());
+//		
+//		model.addAttribute("user",user);
+//		model.addAttribute("image",image);
+//		model.addAttribute("location",location);
+//		model.addAttribute("subject",subjectService.findById(image.getSubjectId()));
+//		
+//		return "image/imageInfo";
+//	}
+//	
+//	/**
+//	 * @desp 查看照片
+//	 * @return
+//	 */
+//	@RequestMapping(value="/image/view/{locationId}",method=RequestMethod.GET)
+//	@LoginCheck
+//	public String view(@PathVariable(value="locationId")String locationId,Model model){
+//		List<Image> imageList = imageService.findByLocOrderByTime(locationId);
+//		
+//		model.addAttribute("imageList",imageList);
+//		model.addAttribute("locationId",locationId);
+//		return "image/viewImage";
+//	}
+//	
+//	/**
+//	 * @desp 时间轴查看照片
+//	 * @param locationId
+//	 * @param model
+//	 * @return
+//	 */
+//	@RequestMapping(value="image/view/timeline/{locationId}",method = RequestMethod.GET)
+//	@LoginCheck
+//	public String viewTimeline(@PathVariable(value="locationId")String locationId,Model model){
+//		List<Image> imageList = imageService.findByLocOrderByTime(locationId);
+//		
+//		model.addAttribute("imageList",imageList);
+//		model.addAttribute("locationId",locationId);
+//		return "image/viewImageTimeline";
+//	}
+//	
+//	/**
+//	 * @desp 删除照片
+//	 * @param imageId
+//	 * @return
+//	 */
+//	@RequestMapping(value="image/delete/{imageId}",method = RequestMethod.GET)
+//	@ResponseBody
+//	@LoginCheck
+//	public Map<String, Object> deleteImage(@PathVariable(value="imageId")String imageId){
+//		resMap = new HashMap<String, Object>();
+//		int status = imageService.delete(imageId);
+//		if(status==0){
+//			resMap.put("status", 1000);
+//		}else{
+//			resMap.put("error", INTERNAL_SERVER_ERROR);
+//		}
+//		return resMap;
+//	}
+//	
+//	/**
+//	 * @desp 更改照片专题
+//	 * @return
+//	 */
+//	@RequestMapping(value="image/changeSubject",method = RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, Object> changeSubject(HttpServletRequest request){
+//		resMap = new HashMap<String, Object>();
+//		String imageId = request.getParameter("imageId");
+//		String subjectId = request.getParameter("subjectId");
+//		int status = imageService.changeSubject(imageId,subjectId);
+//		if(status == 0){
+//			resMap.put("status", 1000);
+//		}else{
+//			resMap.put("error", INTERNAL_SERVER_ERROR);
+//		}
+//		return resMap;
+//	}
+//	
+//	/**
+//	 * @desp 更改照片位置页面
+//	 * @return
+//	 */
+//	@RequestMapping(value="image/page/changeLocation/{imageId}",method = RequestMethod.GET)
+//	@LoginCheck
+//	public String changeLocation(@PathVariable(value="imageId")String imageId,Model model){
+//		Image image = imageService.findById(imageId);
+//		MapLocation location = mapService.findLocationById(image.getLocationId());
+//		model.addAttribute("image",image);
+//		model.addAttribute("location",location);
+//		return "mapResource/changeImgLocation";
+//	}
+//	
+//	/**
+//	 * @desp 更改照片所属位置
+//	 * @return
+//	 */
+//	@RequestMapping(value="image/changeLocation",method = RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, Object> changeLocation(HttpServletRequest request){
+//		resMap = new HashMap<String, Object>();
+//		String imageId = request.getParameter("imageId");
+//		String locationId = request.getParameter("locationId");
+//		int status = imageService.changeLocation(imageId,locationId);
+//		if(status == 0){
+//			resMap.put("status", 1000);
+//		}else{
+//			resMap.put("error", INTERNAL_SERVER_ERROR);
+//		}
+//		return resMap;
+//	}
+//	
 
 }
