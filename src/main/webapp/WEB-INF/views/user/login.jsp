@@ -34,11 +34,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="row bs-reset">
             <div class="col-md-6 bs-reset">
                 <div class="login-bg" style="background-image:url(img/login/bg1.jpg)">
-                    <img class="login-logo" src="img/logo-irm.png" width="288px"/> </div>
+					<!--
+					
+                    <img class="login-logo" src="img/logo-irm.png" width="288px"/>\
+					-->
+				</div>
             </div>
             <div class="col-md-6 login-container bs-reset">
                 <div class="login-content">
-                    <h1>docms后台管理系统</h1>
+                    <h1>DOCMS后台管理系统</h1>
                     <p>"DOCMS文件管理系统”是农行软开上研应用支持部门所使用的文件管理系统。通过网站应用的方式搭建起大家共享、使用、管理文件的平台。DOCMS文件管理系统旨在为大家提供稳定的、易用的文件管理服务。作为工具，协助员工创造更大价值。 </p>
                     <form role="form" data-parsley-validate="" name="login_form" class="login-form">
                         <div id="error_div" class="alert alert-danger display-hide">

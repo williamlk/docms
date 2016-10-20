@@ -58,10 +58,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <i class="fa fa-line-chart"></i>
                             </div>
                             <div class="details">
+							<!--
+							
+							
                                 <div class="number">
                                     <span data-counter="counterup" data-value="${subjectNum }">0 </span> <small>个</small>
                                 </div>
                                 <div class="desc"> 专题数量 </div>
+								
+								
+								-->
+								
+								
+								<div class="number">
+                                    <span data-counter="counterup" data-value="8000">0 </span> <small>个</small>
+                                </div>
+                                <div class="desc"> 文件数量 </div>
+
                             </div>
                         </a>
                     </div>
@@ -70,11 +83,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="visual">
                                 <i class="fa fa-bar-chart-o"></i>
                             </div>
+							<!--
+							
+							
                             <div class="details">
                                 <div class="number">
                                     <span data-counter="counterup" data-value="${imageNum }">0</span> </div>
                                 <div class="desc"> 照片资源数量 </div>
                             </div>
+							
+							-->
+							<div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="42">0</span> </div>
+                                <div class="desc"> 用户数量 </div>
+                            </div>
+							
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -82,11 +106,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="visual">
                                 <i class="fa fa-area-chart"></i>
                             </div>
+							
+							<!--
+							
                             <div class="details">
                                 <div class="number">
                                     <span data-counter="counterup" data-value="${locationNum }">0</span>
                                 </div>
                                 <div class="desc"> 地理映射点 </div>
+                            </div>
+							-->
+							<div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="230">0</span>
+                                </div>
+                                <div class="desc"> 表单数量 </div>
                             </div>
                         </a>
                     </div>
@@ -109,6 +143,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="row">
 	            	<div class="col-md-12">
                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+					   <!--
+					   
                        <div class="portlet light bordered">
                            <div class="portlet-title">
                                <div class="caption font-dark">
@@ -121,6 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                <div id="gmap" class="gmap"></div>
                            </div>
                        </div>
+					   -->
                      </div>
 	            </div>
                 
@@ -141,8 +178,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	$(function(){
     		var url = "http://statistics.pekingmemory.cn/api/visit/0af054213e75e7cd8ca2320bbaa48af282020c4d";
     		$.get(url).done(function(data){
-    			var numAnim = new CountUp("visit-num", 0, data.visit);
- 				numAnim.start();
+    			//var numAnim = new CountUp("visit-num", 0, data.visit);
+ 				var numAnim = new CountUp("visit-num", 0,1000);
+				numAnim.start();
     		});
     	});
     </script>

@@ -30,4 +30,46 @@ public class DispatcherController extends BaseController{
 		model.addAttribute("keys",new List<Object>());
 		return "dashboard";
 	}
+	
+	
+	/**
+	 * @desp 页面header
+	 * @return
+	 */
+	@RequestMapping(value="/page/header",method=RequestMethod.GET)
+	public String header(){
+		return "frame/header";
+	}
+	
+	/**
+	 * @desp 页面bottom
+	 * @return
+	 */
+	@RequestMapping(value="/page/bottom",method=RequestMethod.GET)
+	public String bottom(){
+		return "frame/bottom";
+	}
+	
+	/**
+	 * @desp 页面顶部navbar
+	 * @return
+	 */
+	@RequestMapping(value="/page/topNavBar",method=RequestMethod.GET)
+	public String topNavbar(){
+		return "frame/topNavBar";
+	}
+	
+	/**
+	 * @desp 页面左边菜单栏sideBar
+	 * @return
+	 */
+	@RequestMapping(value="/page/sideBar",method=RequestMethod.GET)
+	public String sideBar(Model model){
+//		model.addAttribute("unCheckNum",visitorService.getunCorrectionNum());
+//		model.addAttribute("unHandleContributionNum",contributionService.getUnHandleContributionNum());
+//		model.addAttribute("unhandleFeedbackNum",visitorService.getUnHandleFeedbacksNum());
+		return "frame/sideBar";
+	}
+	
+	
 }
