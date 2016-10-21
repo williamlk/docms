@@ -53,25 +53,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!-- BEGIN DASHBOARD STATS 1-->
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a class="dashboard-stat dashboard-stat-v2 blue" href="<%=basePath %>page/subjectAdmin">
+                        <a class="dashboard-stat dashboard-stat-v2 blue" href="<%=basePath %>page/fileAdmin">
                             <div class="visual">
                                 <i class="fa fa-line-chart"></i>
                             </div>
                             <div class="details">
-							<!--
-							
-							
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="${subjectNum }">0 </span> <small>个</small>
-                                </div>
-                                <div class="desc"> 专题数量 </div>
-								
-								
-								-->
-								
-								
+
 								<div class="number">
-                                    <span data-counter="counterup" data-value="8000">0 </span> <small>个</small>
+                                    <span data-counter="counterup" data-value="${fileNum}">0 </span> <small>个</small>
                                 </div>
                                 <div class="desc"> 文件数量 </div>
 
@@ -79,48 +68,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a class="dashboard-stat dashboard-stat-v2 red" href="<%=basePath %>page/resource">
+                        <a class="dashboard-stat dashboard-stat-v2 red" href="<%=basePath %>page/userAdmin">
                             <div class="visual">
                                 <i class="fa fa-bar-chart-o"></i>
                             </div>
-							<!--
-							
-							
-                            <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="${imageNum }">0</span> </div>
-                                <div class="desc"> 照片资源数量 </div>
-                            </div>
-							
-							-->
+
 							<div class="details">
                                 <div class="number">
-                                    <span data-counter="counterup" data-value="42">0</span> </div>
+                                    <span data-counter="counterup" data-value="${userNum }">0</span> </div>
                                 <div class="desc"> 用户数量 </div>
                             </div>
 							
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a class="dashboard-stat dashboard-stat-v2 green" href="<%=basePath %>page/map">
+                        <a class="dashboard-stat dashboard-stat-v2 green" href="<%=basePath %>page/jobAdmin">
                             <div class="visual">
                                 <i class="fa fa-area-chart"></i>
                             </div>
-							
-							<!--
-							
-                            <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="${locationNum }">0</span>
-                                </div>
-                                <div class="desc"> 地理映射点 </div>
-                            </div>
-							-->
 							<div class="details">
                                 <div class="number">
-                                    <span data-counter="counterup" data-value="230">0</span>
+                                    <span data-counter="counterup" data-value="${jobNum}">0</span>
                                 </div>
-                                <div class="desc"> 表单数量 </div>
+                                <div class="desc"> 任务数量 </div>
                             </div>
                         </a>
                     </div>
@@ -131,7 +101,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <div class="details">
                                 <div class="number"> 
-                                    <span id="visit-num"  class="counter">0</span> </div>
+                                <!-- 
+                                    <span id="visit-num"  class="counter">0</span> 
+                                 -->
+                                    <span data-counter="counterup" data-value="${visitNum} ">0</span>
+                                </div>
                                 <div class="desc"> 网站流量 </div>
                             </div>
                         </a>
@@ -140,11 +114,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="clearfix"></div>
                 <!-- END DASHBOARD STATS 1-->
                 
+                <%--
                 <div class="row">
 	            	<div class="col-md-12">
                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-					   <!--
-					   
                        <div class="portlet light bordered">
                            <div class="portlet-title">
                                <div class="caption font-dark">
@@ -157,9 +130,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                <div id="gmap" class="gmap"></div>
                            </div>
                        </div>
-					   -->
                      </div>
 	            </div>
+                 --%>
                 
                 
             </div>
@@ -171,9 +144,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="js/jquery.counterup.min.js" type="text/javascript"></script>
     <script src="js/pages/dashboard.js" type="text/javascript"></script>
+	<%--
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=25965f773ab63235c6d60c3b0bf79af8"></script> 
     <script type="text/javascript" src="<%=basePath%>js/countUp.js"></script>
-    
+	 --%> 
+    <%--
     <script type="text/javascript">
     	$(function(){
     		var url = "http://statistics.pekingmemory.cn/api/visit/0af054213e75e7cd8ca2320bbaa48af282020c4d";
@@ -229,5 +204,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   });
 	   }
     </script>
+     --%>
 </body>
 </html>

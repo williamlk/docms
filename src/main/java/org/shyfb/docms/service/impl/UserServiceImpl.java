@@ -101,5 +101,10 @@ public class UserServiceImpl implements UserService{
 			return -1;
 		}
 	}
+
+	@Override
+	public int getUserNum() {
+		return userDao.queryUserNum();
+	}
 	
 }

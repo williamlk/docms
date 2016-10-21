@@ -30,4 +30,6 @@ public interface UserDao {
 	
 	List<User> query(Map<String,Object> map);
 	
+	int queryUserNum();
+	
 }

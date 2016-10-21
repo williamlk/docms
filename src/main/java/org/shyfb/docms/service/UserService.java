@@ -7,6 +7,11 @@ import org.shyfb.docms.entity.User;
 
 
 
+/**
+ * 
+ * @author admin
+ *
+ */
 public interface UserService {
 
 	/**
@@ -56,5 +61,13 @@ public interface UserService {
 	 * @return 0：成功，-1:失败，-2:用户名已注册，
 	 */
 	int register(String name,String password,String email,String phone);
+	
+	
+	
+	/**
+	 * 获得用户总数 
+	 * @return
+	 */
+	int getUserNum();
 
 }

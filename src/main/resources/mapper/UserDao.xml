@@ -3,19 +3,6 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.shyfb.docms.dao.UserDao">
-	<!-- 
-	<resultMap id="BaseResultMap" type="org.shyfb.docms.entity.User">
-		<id column="id" jdbcType="INTEGER" property="id" />
-		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="password" jdbcType="VARCHAR" property="password" />
-		<result column="email" jdbcType="VARCHAR" property="email" />
- 		<result column="phone" jdbcType="VARCHAR" property="phone" />
-		<result column="status" jdbcType="INTEGER" property="status" />		
-		<result column="del" jdbcType="INTEGER" property="del" />
-		<result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-		<result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-	</resultMap>
-	 -->
 	<sql id="columns">
 		u.id,
 		u.name,
@@ -62,6 +49,13 @@
 		<if test="phone != null and phone !=''">
 			and u.phone=#{phone,jdbcType=VARCHAR}
 		</if>
+	</select>
+	
+	<select id="queryUserNum" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from tb_user u
+		where u.del=0
 	</select>
 
 	<update id="update" parameterType="java.util.Map">
