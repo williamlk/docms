@@ -3,7 +3,7 @@ package org.shyfb.docms.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
-import org.shyfb.docms.dao.RoleDao;
+import org.shyfb.docms.dao.mysql.RoleDao;
 import org.shyfb.docms.entity.Role;
 import org.shyfb.docms.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

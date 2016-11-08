@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.shyfb.docms.common.util.EncoderHandler;
-import org.shyfb.docms.dao.UserDao;
+import org.shyfb.docms.dao.mysql.UserDao;
 import org.shyfb.docms.entity.User;
 import org.shyfb.docms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

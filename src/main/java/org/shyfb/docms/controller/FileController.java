@@ -1,6 +1,8 @@
 package org.shyfb.docms.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.shyfb.docms.aop.annotation.LoginCheck;
+import org.shyfb.docms.common.util.EncoderHandler;
+import org.shyfb.docms.common.util.StringHandler;
 import org.shyfb.docms.entity.User;
 import org.shyfb.docms.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,18 +48,34 @@ public class FileController extends BaseController{
 	 * @desp 跳转到上传文件页面
 	 * @return
 	 */
-	@RequestMapping(value="/file/page/add/{subjectId}/{locationId}")
+	// TODO
+//	@RequestMapping(value="/file/page/add/{subjectId}/{locationId}")
+//	@LoginCheck
+//	public String addFilePage(@PathVariable(value="subjectId")String subjectId,@PathVariable(value="locationId")String locationId,Model model){
+////		MapLocation location = mapService.findLocationById(locationId);
+////		Subject subject = subjectService.findById(subjectId);
+////		
+////		model.addAttribute("location",location);
+////		model.addAttribute("subject",subject);
+//		
+//		return "file/addFile";
+//	}
+	
+	/**
+	 * @desp 跳转到上传文件页面
+	 * @return
+	 */
+	@RequestMapping(value="/file/page/add")
 	@LoginCheck
-	public String addImagePage(@PathVariable(value="subjectId")String subjectId,@PathVariable(value="locationId")String locationId,Model model){
+	public String addFilePage(){
 //		MapLocation location = mapService.findLocationById(locationId);
 //		Subject subject = subjectService.findById(subjectId);
 //		
 //		model.addAttribute("location",location);
 //		model.addAttribute("subject",subject);
 		
-		return "image/addImage";
+		return "file/addFile";
 	}
-	
 	
 	/**
 	 * @desp 上传新的照片资源
@@ -68,9 +88,11 @@ public class FileController extends BaseController{
 	 */
 	@RequestMapping(value="/file/add",method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> addImage(@RequestParam(value="image",required=false) MultipartFile image,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException{
+	public Map<String, Object> addImage(@RequestParam(value="file",required=false) MultipartFile file,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException{
 		resMap = new HashMap<String, Object>();
-		//获取当前 用户
+		//获取当前 用户用户名
+		String userName = ((User)session.getAttribute("user")).getName();
+		//获取当前 用户ID
 		String userId = ((User)session.getAttribute("user")).getId().toString();
 		
 		/*
@@ -78,37 +100,30 @@ public class FileController extends BaseController{
 		 * MultipartFile类中两个方法区别：
 		 *	getName : 获取表单中文件组件的名字
 		 *	getOriginalFilename : 获取上传文件的原名
+		 * 获取上传文件的原名
 		 */
-		String fileName = image.getOriginalFilename();
-		
-		String title = request.getParameter("title");
-		String subject = request.getParameter("subject");
+		String fileName = file.getOriginalFilename();
+		String prefix=fileName.substring(fileName.lastIndexOf(".")+1);
+		//获取所属目录id
+		String folderId = request.getParameter("folderId");
 		String description = request.getParameter("description");
-		String source = request.getParameter("source");
-		String tag = request.getParameter("tag");
-		String creator = request.getParameter("creator");
-		String publisher = request.getParameter("publisher");
-		String contributor = request.getParameter("contributor");
-		String uploadUser = userId;
-		String date = request.getParameter("date");
-		String type = request.getParameter("type");
-		String locationId = request.getParameter("locationId");
-		String subjectId = request.getParameter("subjectId");
-		String address = request.getParameter("address");
+		String uploadUser = userName;
+		String type = prefix;
+		String ownerId = userId;
 		
-		String path = request.getSession().getServletContext().getRealPath("/img/");
-//		File imageFile = new File(path+EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+image.getOriginalFilename())+".jpg");
-//		
-//		image.transferTo(imageFile);
-//		
+		String path = request.getSession().getServletContext().getRealPath("/files/");
+//		File docFile = new File(path+EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+file.getOriginalFilename())+"."+prefix);
+		File docFile = new File(EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+file.getOriginalFilename())+"."+prefix);
+		file.transferTo(docFile);
+		int status = fileService.addFile(docFile, fileName, description, type, uploadUser, folderId, ownerId);
 //		int status = imageService.addImage(imageFile, fileName, title, subject, description, source, tag,
 //				creator, publisher, contributor, uploadUser, date, type, locationId,subjectId,address);
 //		
-//		if(status == 0){
-//			resMap.put("status", 1000);
-//		}else{
-//			resMap.put("error", INTERNAL_SERVER_ERROR);
-//		}
+		if(status == 0){
+			resMap.put("status", 1000);
+		}else{
+			resMap.put("error", INTERNAL_SERVER_ERROR);
+		}
 		
 		return resMap;
 	}

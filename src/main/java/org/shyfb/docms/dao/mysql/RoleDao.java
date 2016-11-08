@@ -1,4 +1,4 @@
-package org.shyfb.docms.dao;
+package org.shyfb.docms.dao.mysql;
 
 import org.shyfb.docms.entity.Role;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.shyfb.docms.dao;
+package org.shyfb.docms.dao.mysql;
 
 import java.util.List;
 import java.util.Map;

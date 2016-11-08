@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>docms Maven Webapp</name>
 	<properties>
-	
+		
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<!-- Hibernate / JPA -->
@@ -289,6 +289,8 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
+			
 		</plugins>
 	</build>
 </project>
