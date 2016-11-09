@@ -13,11 +13,28 @@ import org.shyfb.docms.entity.mongo.Doc;
  */
 public interface FileService {
 	
-	
+	/**
+	 * 添加文件
+	 * @param docFile 持久化文件对象
+	 * @param fileName 文件名
+	 * @param description 文件描述
+	 * @param type 文件类型
+	 * @param uploadUser 上传人（名称）
+	 * @param folderId 文件夹id
+	 * @param ownerId 所有者id
+	 * @return
+	 */
 	public int addFile(File docFile,String fileName,String description,String type,String uploadUser,String folderId,String ownerId);
 	
-	
-	public int editFile();
+	/**
+	 * 修改文件元数据
+	 * @param id 文件的id，通过该id查找出该doc
+	 * @param description 描述
+	 * @param folderId 所属文件夹
+	 * @param ownerId 所有者id
+	 * @return
+	 */
+	public int editFile(String id,String description,String folderId,String ownerId);
 	
 	/**
 	 * 获取文件总数量
@@ -36,7 +53,7 @@ public interface FileService {
 	/**
 	 * 通过文件Id删除文件
 	 * @param id 文件id
-	 * @return
+	 * @return 0 正常 -1 出错
 	 */
 	public int delete(String id);
 	

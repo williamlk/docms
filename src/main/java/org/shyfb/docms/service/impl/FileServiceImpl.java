@@ -31,10 +31,8 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public int addFile(File docFile, String fileName, String description, String type, String uploadUser,
 			String folderId, String ownerId) {
-		System.out.println("=========fileService====== addFile()======");
 		// 把文件存到mongo gridfs里 ， 得到该文件的id
 		String fileId = fileDao.save(docFile, fileName);
-
 		Doc doc = new Doc();
 		doc.setFileId(fileId);
 		doc.setName(fileName);
@@ -42,54 +40,81 @@ public class FileServiceImpl implements FileService {
 		doc.setOwnerId(ownerId);
 		doc.setUploadUser(uploadUser);
 		doc.setCreatedTime(StringHandler.timeTostr(new Date()));
-		doc.setFolderId(folderId);
+		
+		if(folderId==null || folderId==""){
+			doc.setFolderId("0");
+		}else{
+			doc.setFolderId(folderId);
+		}
+		
 		doc.setStatus(1);
 		doc.setType(type);
-
-		System.out.println(doc.toString());
-		System.out.println("=========fileService====== docFile.existFile()======");
 		if(docFile.exists()){
 			docFile.delete();
 		}
-		
 		try {
 			docDao.save(doc);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
-
 		return 0;
 	}
+
 
 	@Override
-	public int editFile() {
-		// TODO Auto-generated method stub
+	public int editFile(String id, String description, String folderId, String ownerId) {
+		Doc doc = docDao.findById(id);
+		if(description!=null){
+			doc.setDescription(description);
+		}
+		if(folderId!=null){
+			doc.setFolderId(folderId);
+		}
+		if(ownerId!=null){
+			doc.setOwnerId(ownerId);
+		}
+		try{
+			docDao.save(doc);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 		return 0;
 	}
-
+	
 	@Override
 	public int getFileNum() {
-		// TODO Auto-generated method stub
-		return 0;
+		List<Doc> docList = docDao.findAll();
+		return docList.size();
 	}
 
 	@Override
 	public Doc findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return docDao.findById(id);
 	}
 
 	@Override
 	public int delete(String id) {
-		// TODO Auto-generated method stub
+		Doc doc = docDao.findById(id);
+		try{
+			fileDao.delete(doc.getFileId());
+			docDao.delete(doc);
+		}catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
 		return 0;
 	}
 
 	@Override
 	public List<Doc> findByFolder(String folderId) {
-		// TODO Auto-generated method stub
-		return null;
+		String queryString ="{'folderId':'"+folderId+"'}";
+		List<Doc> list = docDao.findByQuery(queryString);
+		return list;
 	}
 
+
+	
+	
 }

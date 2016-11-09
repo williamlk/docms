@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="col-xs-7 bs-reset">
                             <div class="login-copyright text-right">
-                                <p>Copyright &copy;  2016 中国农业银行软件开发中心 支持一部@abchina</p>
+                                <p>Copyright &copy;  2016 中国农业银行软件开发中心 上研应用支持@abchina</p>
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@ package org.shyfb.docms.controller;
 
 
 import org.shyfb.docms.aop.annotation.LoginCheck;
+import org.shyfb.docms.service.FileService;
 import org.shyfb.docms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -23,6 +24,8 @@ public class DispatcherController extends BaseController{
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	FileService fileService;
 	
 	@RequestMapping(value="/",method = RequestMethod.GET)
 	public String home(/*Model model*/) {
@@ -31,12 +34,13 @@ public class DispatcherController extends BaseController{
 	}
 	
 	@RequestMapping(value="/dashboard",method=RequestMethod.GET)
+	@LoginCheck
 	public String dashboard(Model model){
 		//TODO 可以加入些统计信息，统计信息可以用缓存，redis的使用契机，找机会整合进去
 		model.addAttribute("userNum",userService.getUserNum());
-		model.addAttribute("fileNum", 1000);
-		model.addAttribute("visitNum", 1364168);
-		model.addAttribute("jobNum", 310);
+		model.addAttribute("fileNum", fileService.getFileNum());
+		model.addAttribute("visitNum", 1000);
+		model.addAttribute("jobNum",1000);
 		return "dashboard";
 	}
 	
@@ -90,5 +94,14 @@ public class DispatcherController extends BaseController{
 		return "user/userAdmin";
 	}
 	
+	/**
+	 * @desp 文件管理页面
+	 * @return
+	 */
+	@RequestMapping(value="/page/fileAdmin",method = RequestMethod.GET)
+	@LoginCheck
+	public String fileAdmin(){
+		return "file/fileAdmin";
+	}
 	
 }

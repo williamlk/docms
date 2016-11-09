@@ -96,7 +96,6 @@ public class FileController extends BaseController{
 		String userId = ((User)session.getAttribute("user")).getId().toString();
 		
 		/*
-		 * 
 		 * MultipartFile类中两个方法区别：
 		 *	getName : 获取表单中文件组件的名字
 		 *	getOriginalFilename : 获取上传文件的原名
@@ -106,8 +105,10 @@ public class FileController extends BaseController{
 		String prefix=fileName.substring(fileName.lastIndexOf(".")+1);
 		//获取所属目录id
 		String folderId = request.getParameter("folderId");
+		//获取文件描述
 		String description = request.getParameter("description");
 		String uploadUser = userName;
+		// 文件的后缀
 		String type = prefix;
 		String ownerId = userId;
 		
@@ -116,15 +117,11 @@ public class FileController extends BaseController{
 		File docFile = new File(EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+file.getOriginalFilename())+"."+prefix);
 		file.transferTo(docFile);
 		int status = fileService.addFile(docFile, fileName, description, type, uploadUser, folderId, ownerId);
-//		int status = imageService.addImage(imageFile, fileName, title, subject, description, source, tag,
-//				creator, publisher, contributor, uploadUser, date, type, locationId,subjectId,address);
-//		
 		if(status == 0){
 			resMap.put("status", 1000);
 		}else{
 			resMap.put("error", INTERNAL_SERVER_ERROR);
 		}
-		
 		return resMap;
 	}
 	

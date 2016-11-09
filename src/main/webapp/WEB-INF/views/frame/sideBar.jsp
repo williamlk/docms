@@ -59,12 +59,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li class="heading">
                 <h3 class="uppercase">资源</h3>
             </li>
-            <li class="nav-item" id="subject_admin">
-                <a href="<%=basePath %>page/subjectAdmin" class="nav-link nav-toggle">
+            <li class="nav-item" id="file_admin">
+                <a href="<%=basePath %>page/fileAdmin" class="nav-link nav-toggle">
                     <i class="fa fa-database"></i>
-                    <span class="title">专题内容管理</span>
+                    <span class="title">文件管理</span>
                 </a>
             </li>
+			<!--
+			
             <li class="nav-item" id="resource_admin">
                 <a href="<%=basePath %>page/resource" class="nav-link nav-toggle">
                     <i class="fa fa-map"></i>
@@ -89,7 +91,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span class="title">资源检索</span>
                 </a>
             </li>
-            
+            -->
+			<!--
+			
             <li class="heading">
                 <h3 class="uppercase">交互</h3>
             </li>
@@ -115,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </a>
             </li>
             
-            
+            -->
             <li class="heading">
                 <h3 class="uppercase">系统</h3>
             </li>

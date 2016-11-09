@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <!-- END PAGE TITLE-->
 	            <!-- END PAGE HEADER-->
 	            <div class="note note-info">
-	                <p> A black page template with a minimal dependency assets to use as a base for any custom page you create </p>
+	                <p> 请 按 照 要 求 填 写 文 件 相 关 信 息 </p>
 	            </div>
 	            
 	            <div class="row">
@@ -304,7 +304,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#confirm').click(function(){
 				$(this).button('loading');
 				var url = "<%=basePath%>/file/add"
-				//console.log('1111');
 				$('form[name=imageForm]').ajaxSubmit({
 					type:'post',
 					url:url,
