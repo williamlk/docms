@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            
 	            <div class="row">
-	            <form name="imageForm" enctype="multipart/form-data" role="form" class="form-horizontal">
+	            <form name="fileForm" enctype="multipart/form-data" role="form" class="form-horizontal">
                   <div class="col-md-5">
                        <div class="portlet light bordered">
                            <div class="portlet-title">
@@ -145,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        		</div>
                    		</div>
                    		
-					<!--
+					
                    	<div class="col-md-7">
 	                  <div class="portlet light bordered">
                            <div class="portlet-title">
@@ -157,6 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                            </div>
                            <div class="portlet-body form">
                                 <div class="form-body">
+								<!--
                                   <fieldset>
 				            			<div class="form-group">
 					                          <label class="col-sm-2 control-label">形成时间：</label>
@@ -194,17 +195,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                          </div>
 					                    </div>
 					            	</fieldset>
+									-->
 					            	<fieldset>
 				            			<div class="form-group">
-					                          <label class="col-sm-2 control-label">照片类型：</label>
+					                          <label class="col-sm-2 control-label">文件类型：</label>
 					                          <div class="col-sm-9">
-					                              <select name="type" class="form-control m-b">
-					                                 <option value="建筑风貌">建筑风貌</option>
-					                                 <option value="生活文化">生活文化</option>
-					                                 <option value="历史事件">历史事件</option>
-					                                 <option value="人物写真">人物写真</option>
+					                              <select name="status" class="form-control m-b">
+					                                 <option value="common">普通文件</option>
+					                                 <option value="temporary">临时文件</option>
 					                              </select>
-					                             <span class="help-block m-b-none">照片内容所反映的类型</span>
+					                             <span class="help-block m-b-none">文件类型</span>
 					                          </div>
 					                    </div>
 					            	</fieldset>
@@ -212,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       		</div>
                   		</div>
 	                  </div>
-						-->
+						
 	                  <div class="col-md-7">
 	                  <div class="portlet light bordered">
                            <div class="portlet-title">
@@ -285,7 +285,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			
 			$('input[name=file]').change(function(){
-				var files=$('input[name=image]').prop('files');
+				var files=$('input[name=file]').prop('files');
     			var file=files[0];
 				/**
     			if(!/image\/\w+/.test(file.type)){   
@@ -304,7 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#confirm').click(function(){
 				$(this).button('loading');
 				var url = "<%=basePath%>/file/add"
-				$('form[name=imageForm]').ajaxSubmit({
+				$('form[name=fileForm]').ajaxSubmit({
 					type:'post',
 					url:url,
 					data:$(this).serialize(),
@@ -317,7 +317,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								confirmButtonText: "  OK  ",
 								closeOnConfirm: false,
 							},function(){
-								window.location.href="<%=basePath%>dashboard"
+								window.location.href="<%=basePath%>page/fileAdmin"
 								//window.location.href="<%=basePath%>page/subjectAdmin";
 							}
 						);

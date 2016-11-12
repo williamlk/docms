@@ -1,13 +1,13 @@
 package org.shyfb.docms.service.impl;
 
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import org.shyfb.docms.common.Constants;
 import org.shyfb.docms.common.util.StringHandler;
-import org.shyfb.docms.dao.mongo.DocDao;
 import org.shyfb.docms.dao.mongo.FileDao;
-import org.shyfb.docms.entity.mongo.Doc;
+import org.shyfb.docms.dao.mongo.MongoGridfsFileDao;
+import org.shyfb.docms.entity.mongo.File;
 import org.shyfb.docms.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,37 +23,31 @@ import org.springframework.stereotype.Service;
 public class FileServiceImpl implements FileService {
 
 	@Autowired
-	private FileDao fileDao;
+	private MongoGridfsFileDao mongoGridfsFileDao;
 	
 	@Autowired
-	private DocDao docDao;
+	private FileDao fileDao;
 
 	@Override
-	public int addFile(File docFile, String fileName, String description, String type, String uploadUser,
+	public int addFile(java.io.File mongoGridfsFile, String fileName, String description, String type, String uploadUser,
 			String folderId, String ownerId) {
 		// 把文件存到mongo gridfs里 ， 得到该文件的id
-		String fileId = fileDao.save(docFile, fileName);
-		Doc doc = new Doc();
-		doc.setFileId(fileId);
-		doc.setName(fileName);
-		doc.setDescription(description);
-		doc.setOwnerId(ownerId);
-		doc.setUploadUser(uploadUser);
-		doc.setCreatedTime(StringHandler.timeTostr(new Date()));
-		
-		if(folderId==null || folderId==""){
-			doc.setFolderId("0");
-		}else{
-			doc.setFolderId(folderId);
-		}
-		
-		doc.setStatus(1);
-		doc.setType(type);
-		if(docFile.exists()){
-			docFile.delete();
+		String fileId = mongoGridfsFileDao.save(mongoGridfsFile, fileName);
+		org.shyfb.docms.entity.mongo.File file = new File();
+		file.setFileId(fileId);
+		file.setName(fileName);
+		file.setDescription(description);
+		file.setOwnerId(ownerId);
+		file.setUploadUser(uploadUser);
+		file.setCreatedTime(StringHandler.timeTostr(new Date()));
+		file.setFolderId(folderId);
+		file.setStatus(Constants.FileConstants.COMMON.getCode());
+		file.setType(type);
+		if(mongoGridfsFile.exists()){
+			mongoGridfsFile.delete();
 		}
 		try {
-			docDao.save(doc);
+			fileDao.save(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
@@ -64,18 +58,18 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public int editFile(String id, String description, String folderId, String ownerId) {
-		Doc doc = docDao.findById(id);
+		File file = fileDao.findById(id);
 		if(description!=null){
-			doc.setDescription(description);
+			file.setDescription(description);
 		}
 		if(folderId!=null){
-			doc.setFolderId(folderId);
+			file.setFolderId(folderId);
 		}
 		if(ownerId!=null){
-			doc.setOwnerId(ownerId);
+			file.setOwnerId(ownerId);
 		}
 		try{
-			docDao.save(doc);
+			fileDao.save(file);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return -1;
@@ -85,21 +79,21 @@ public class FileServiceImpl implements FileService {
 	
 	@Override
 	public int getFileNum() {
-		List<Doc> docList = docDao.findAll();
-		return docList.size();
+		List<File> fileList = fileDao.findAll();
+		return fileList.size();
 	}
 
 	@Override
-	public Doc findById(String id) {
-		return docDao.findById(id);
+	public File findById(String id) {
+		return fileDao.findById(id);
 	}
 
 	@Override
 	public int delete(String id) {
-		Doc doc = docDao.findById(id);
+		File file = fileDao.findById(id);
 		try{
-			fileDao.delete(doc.getFileId());
-			docDao.delete(doc);
+			mongoGridfsFileDao.delete(file.getFileId());
+			fileDao.delete(file);
 		}catch(Exception e){
 			e.printStackTrace();
 			return -1;
@@ -108,13 +102,11 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public List<Doc> findByFolder(String folderId) {
+	public List<File> findByFolder(String folderId) {
 		String queryString ="{'folderId':'"+folderId+"'}";
-		List<Doc> list = docDao.findByQuery(queryString);
+		List<File> list = fileDao.findByQuery(queryString);
 		return list;
 	}
-
-
 	
 	
 }

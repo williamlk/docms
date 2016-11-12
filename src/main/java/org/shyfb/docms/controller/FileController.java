@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.shyfb.docms.aop.annotation.LoginCheck;
+import org.shyfb.docms.common.Constants;
 import org.shyfb.docms.common.util.EncoderHandler;
 import org.shyfb.docms.common.util.StringHandler;
 import org.shyfb.docms.entity.User;
@@ -28,6 +29,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @Scope("prototype")
 public class FileController extends BaseController{
+	
+	public static void main(String[] args) {
+		String filename="aba.txt";
+		System.out.println(filename.lastIndexOf(".")+1);
+		System.out.println(filename.substring(filename.lastIndexOf(".")+1));
+	}
 	
 	@Autowired
 	private FileService fileService;
@@ -102,7 +109,11 @@ public class FileController extends BaseController{
 		 * 获取上传文件的原名
 		 */
 		String fileName = file.getOriginalFilename();
-		String prefix=fileName.substring(fileName.lastIndexOf(".")+1);
+		String prefix=null;
+		if(fileName.lastIndexOf(".")>-1){
+			prefix=fileName.substring(fileName.lastIndexOf(".")+1);
+		}
+		
 		//获取所属目录id
 		String folderId = request.getParameter("folderId");
 		//获取文件描述
@@ -114,11 +125,11 @@ public class FileController extends BaseController{
 		
 		String path = request.getSession().getServletContext().getRealPath("/files/");
 //		File docFile = new File(path+EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+file.getOriginalFilename())+"."+prefix);
-		File docFile = new File(EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+file.getOriginalFilename())+"."+prefix);
-		file.transferTo(docFile);
-		int status = fileService.addFile(docFile, fileName, description, type, uploadUser, folderId, ownerId);
+		File mongoGridfsFile = new File(EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+file.getOriginalFilename())+"."+prefix);
+		file.transferTo(mongoGridfsFile);
+		int status = fileService.addFile(mongoGridfsFile, fileName, description, type, uploadUser, folderId, ownerId);
 		if(status == 0){
-			resMap.put("status", 1000);
+			resMap.put("status", Constants.ControllerConstants.OK.getCode());
 		}else{
 			resMap.put("error", INTERNAL_SERVER_ERROR);
 		}

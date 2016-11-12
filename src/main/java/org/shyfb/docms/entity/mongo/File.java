@@ -9,8 +9,8 @@ import org.springframework.data.annotation.Id;
  * @author huyinghao@abchina.com
  * @date 2016年11月8日
  */
-@org.springframework.data.mongodb.core.mapping.Document(collection="t_doc")
-public class Doc {
+@org.springframework.data.mongodb.core.mapping.Document(collection="t_file")
+public class File {
 	@Id
 	private ObjectId id;
 	

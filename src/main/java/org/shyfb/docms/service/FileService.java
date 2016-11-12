@@ -1,9 +1,7 @@
 package org.shyfb.docms.service;
 
-import java.io.File;
 import java.util.List;
 
-import org.shyfb.docms.entity.mongo.Doc;
 
 /**
  * 文件service层接口
@@ -24,7 +22,7 @@ public interface FileService {
 	 * @param ownerId 所有者id
 	 * @return
 	 */
-	public int addFile(File docFile,String fileName,String description,String type,String uploadUser,String folderId,String ownerId);
+	public int addFile(java.io.File mongoGridfsFile,String fileName,String description,String type,String uploadUser,String folderId,String ownerId);
 	
 	/**
 	 * 修改文件元数据
@@ -48,7 +46,7 @@ public interface FileService {
 	 * @param id 文件id
 	 * @return
 	 */
-	public Doc findById(String id);
+	public org.shyfb.docms.entity.mongo.File findById(String id);
 	
 	/**
 	 * 通过文件Id删除文件
@@ -62,5 +60,5 @@ public interface FileService {
 	 * @param folderId 目录id
 	 * @return
 	 */
-	public List<Doc> findByFolder(String folderId);
+	public List<org.shyfb.docms.entity.mongo.File> findByFolder(String folderId);
 }
