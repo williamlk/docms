@@ -100,6 +100,7 @@ under the License.
     </proxy>
     -->
 	
+	
 	<proxy>
 		<id>office-proxy</id>
 		<active>true</active>
@@ -107,6 +108,7 @@ under the License.
 		<host>10.237.28.11</host>
 		<port>8080</port>
 	</proxy>
+	
   </proxies>
 
   <!-- servers
@@ -172,6 +174,27 @@ under the License.
 <name>UK Central</name> 
 <url>http://uk.maven.org/maven2/</url>
 <mirrorOf>central</mirrorOf>
+</mirror>
+
+<mirror>  
+    <id>repo2</id>  
+    <mirrorOf>central</mirrorOf>  
+    <name>Human Readable Name for this Mirror.</name>  
+    <url>http://repo2.maven.org/maven2/</url>  
+</mirror>
+
+<mirror>  
+    <id>net-cn</id>  
+    <mirrorOf>central</mirrorOf>  
+    <name>Human Readable Name for this Mirror.</name>  
+    <url>http://maven.net.cn/content/groups/public/</url>   
+</mirror>
+
+<mirror>  
+    <id>ibiblio</id>  
+    <mirrorOf>central</mirrorOf>  
+    <name>Human Readable Name for this Mirror.</name>  
+    <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>  
 </mirror>
 
   </mirrors>
