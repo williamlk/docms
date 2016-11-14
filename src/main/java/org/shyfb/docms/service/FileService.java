@@ -2,6 +2,8 @@ package org.shyfb.docms.service;
 
 import java.util.List;
 
+import com.mongodb.gridfs.GridFSDBFile;
+
 
 /**
  * 文件service层接口
@@ -33,6 +35,13 @@ public interface FileService {
 	 * @return
 	 */
 	public int editFile(String id,String description,String folderId,String ownerId);
+	
+	/**
+	 * 获取mongodbgridfs存储的文件
+	 * @param id
+	 * @return
+	 */
+	public GridFSDBFile getGridFSDBFile(String id);
 	
 	/**
 	 * 获取文件总数量

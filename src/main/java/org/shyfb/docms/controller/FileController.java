@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.shyfb.docms.aop.annotation.LoginCheck;
 import org.shyfb.docms.common.Constants;
 import org.shyfb.docms.common.util.EncoderHandler;
 import org.shyfb.docms.common.util.StringHandler;
+import org.shyfb.docms.dao.mongo.MongoGridfsFileDao;
 import org.shyfb.docms.entity.User;
 import org.shyfb.docms.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mongodb.gridfs.GridFSDBFile;
+
+/**
+ * 文件控制类
+ * @desp 实现文件类请求的跳转和处理
+ * @author huyinghao@abchina.com
+ * @date 2016年11月12日
+ */
 @Controller
 @Scope("prototype")
 public class FileController extends BaseController{
@@ -39,7 +49,8 @@ public class FileController extends BaseController{
 	@Autowired
 	private FileService fileService;
 	
-
+	@Autowired
+	private MongoGridfsFileDao mongoGridfsFileDao;
 //	@Autowired
 //	private ImageService imageService;
 //	@Autowired
@@ -95,6 +106,7 @@ public class FileController extends BaseController{
 	 */
 	@RequestMapping(value="/file/add",method = RequestMethod.POST)
 	@ResponseBody
+	@LoginCheck
 	public Map<String, Object> addImage(@RequestParam(value="file",required=false) MultipartFile file,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException{
 		resMap = new HashMap<String, Object>();
 		//获取当前 用户用户名
@@ -123,6 +135,9 @@ public class FileController extends BaseController{
 		String type = prefix;
 		String ownerId = userId;
 		
+		/*
+		 * 生产和开发环境不同，path暂时不用
+		 */
 		String path = request.getSession().getServletContext().getRealPath("/files/");
 //		File docFile = new File(path+EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+file.getOriginalFilename())+"."+prefix);
 		File mongoGridfsFile = new File(EncoderHandler.encodeBySHA1(StringHandler.getSerial(new Date())+file.getOriginalFilename())+"."+prefix);
@@ -134,6 +149,31 @@ public class FileController extends BaseController{
 			resMap.put("error", INTERNAL_SERVER_ERROR);
 		}
 		return resMap;
+	}
+	
+	
+	/**
+	 * 文件下载controller
+	 * @param id
+	 * @param sessioin
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value="file/download/{id}")
+	@LoginCheck
+	public void download(@PathVariable(value="id") String id,HttpSession sessioin,HttpServletResponse response) throws IOException{
+		
+		org.shyfb.docms.entity.mongo.File file=fileService.findById(id);
+		GridFSDBFile gridFSDBFile =new GridFSDBFile();
+		if(file.getFileId()!=null){
+			gridFSDBFile = mongoGridfsFileDao.findById(file.getFileId());
+			
+		}
+		response.reset();
+		response.setContentType("application/x-download");
+		response.addHeader("Content-Disposition", "attachment;filename="+file.getName());
+		
+		gridFSDBFile.writeTo(response.getOutputStream());
 	}
 	
 //	/**

@@ -12,6 +12,8 @@ import org.shyfb.docms.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.gridfs.GridFSDBFile;
+
 /**
  * 文件模块服务层
  * 
@@ -106,6 +108,12 @@ public class FileServiceImpl implements FileService {
 		String queryString ="{'folderId':'"+folderId+"'}";
 		List<File> list = fileDao.findByQuery(queryString);
 		return list;
+	}
+
+
+	@Override
+	public GridFSDBFile getGridFSDBFile(String id) {
+		return mongoGridfsFileDao.findById(id);
 	}
 	
 	
