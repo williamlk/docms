@@ -25,6 +25,34 @@ public class User {
 	private Integer roleId;
 	
 	private Role role;
+	
+	/*********view**********/
+	//状态描述
+	private String statusDescription;
+	
+	//角色名称
+	private String roleName;
+
+	
+	
+	
+	/**********getter and setter*************/
+	public String getStatusDescription() {
+		return statusDescription;
+	}
+
+	public void setStatusDescription(String statusDescription) {
+		this.statusDescription = statusDescription;
+	}
+
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
 	public Integer getId() {
 		return id;
@@ -116,6 +144,14 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", phone=" + phone
+				+ ", status=" + status + ", del=" + del + ", createdTime=" + createdTime + ", updatedTime="
+				+ updatedTime + ", roleId=" + roleId + ", role=" + role + ", statusDescription=" + statusDescription
+				+ ", roleName=" + roleName + "]";
 	}
 
 	

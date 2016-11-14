@@ -1,13 +1,16 @@
 package org.shyfb.docms.controller;
 
+import java.nio.file.DirectoryStream.Filter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.shyfb.docms.aop.annotation.LoginCheck;
+import org.shyfb.docms.common.Constants;
 import org.shyfb.docms.entity.Role;
 import org.shyfb.docms.entity.User;
 import org.shyfb.docms.service.RoleService;
@@ -26,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2016年10月11日
  */
 
-//TODO 修改RequestMethod,讨论明确要不要参数验证
 @Controller
 @Scope("prototype")
 public class UserController extends BaseController{
@@ -91,13 +93,35 @@ public class UserController extends BaseController{
 	@ResponseBody
 	public Map<String,Object> userData(){
 		resMap=new HashMap<String,Object>();
-		List<User> users=userService.query(new HashMap<String,Object>());
+		List<User> users=userService.query(new HashMap<String,Object>())
+									.stream()
+									.filter(user -> getUserStatusDescription(user))
+									.filter(user -> getUserRoleName(user))
+									.collect(Collectors.toList());
 		resMap.put("data", users);
 		return resMap;
 	}
 	
+	private Boolean getUserStatusDescription(User user){
+		if(user.getStatus() == Constants.UserConstants.NORMAL.getCode()){
+			user.setStatusDescription("正常");
+		}
+		if(user.getStatus() == Constants.UserConstants.FORBIDDEN.getCode()){
+			user.setStatusDescription("禁用");
+		}
+		return true;
+	}
 	
-	
+	private Boolean getUserRoleName(User user){
+		if(user.getRoleId()!=null){
+			Role role = roleService.getRoleById(user.getRoleId());
+			if(role!=null){
+				user.setRole(role);
+				user.setRoleName(role.getName());
+			}
+		}
+		return true;
+	}
 	
 //	@LoginCheck
 	@RequestMapping(value="/user/logout",method = RequestMethod.GET)

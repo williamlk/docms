@@ -96,8 +96,8 @@ public class FileController extends BaseController{
 	}
 	
 	/**
-	 * @desp 上传新的照片资源
-	 * @param image
+	 * 上传文件
+	 * @param file
 	 * @param session
 	 * @param request
 	 * @return
@@ -153,7 +153,7 @@ public class FileController extends BaseController{
 	
 	
 	/**
-	 * 文件下载controller
+	 * 文件下载
 	 * @param id
 	 * @param sessioin
 	 * @param response

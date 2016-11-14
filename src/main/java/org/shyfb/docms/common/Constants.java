@@ -8,7 +8,23 @@ package org.shyfb.docms.common;
  */
 public class Constants {
 	
+	
+	
+	
 	private Constants() {
+	}
+
+	public enum UserConstants{
+		NORMAL(1),FORBIDDEN(2);
+		private Integer code;
+		
+		private UserConstants(Integer code){
+			this.code=code;
+		}
+		
+		public Integer getCode(){
+			return code;
+		}
 	}
 	
 	public enum ControllerConstants{

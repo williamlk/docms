@@ -65,6 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                            <th> 用户名 </th>
                                            <th> 邮箱 </th>
                                            <th> 手机号 </th>
+										   <th> 角色名称</th>
                                            <th> 状态</th>
                                            <th> 操作 </th>
                                        </tr>
@@ -96,7 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		        { "data": "name" },
     		        { "data": "email" },
     		        { "data": "phone" },
-    		        { "data": "status" },
+					{ "data": "roleName" },
+    		        { "data": "statusDescription" },
     		        {
     	                "data": null,
     	                "defaultContent": '<div class="btn-group"><button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> 操作<i class="fa fa-angle-down"></i></button><ul class="dropdown-menu" role="menu"><li><a href="javascript:;"><i class="icon-docs"></i> 查看 </a></li><li><a href="javascript:;"><i class="icon-tag"></i> 禁用 </a></li></ul></div>'

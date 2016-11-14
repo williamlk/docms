@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService{
 	@Override
 	public Role getRoleById(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return roleDao.queryById(id);
 	}
 	
 }
